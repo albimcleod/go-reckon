@@ -134,12 +134,12 @@ func (v *Reckon) RefreshToken(refreshtoken string) (string, string, time.Time, e
 }
 
 // GetCompany will return the authenticated company
-func (v *Reckon) GetContacts(token string) ([]Contact, error) {
+func (v *Reckon) GetContacts(token string, bookId string) ([]Contact, error) {
 	client := &http.Client{}
 	client.CheckRedirect = checkRedirectFunc
 
 	u, _ := url.ParseRequestURI(ApiEndpointURL)
-	u.Path = "r1/contacts"
+	u.Path = fmt.Sprintf("r1/%s/contacts", bookId)
 	urlStr := fmt.Sprintf("%v", u)
 
 	r, err := http.NewRequest("GET", urlStr, nil)
